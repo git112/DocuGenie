@@ -1,0 +1,23 @@
+name: Deploy to Hugging Face Spaces
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Deploy to Hugging Face Spaces
+      uses: huggingface/huggingface_hub@v0.19.4
+      with:
+        repo-type: space
+        space-sdk: streamlit
+        space-hardware: cpu-basic
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        hf-token: ${{ secrets.HF_TOKEN }}
