@@ -5,13 +5,20 @@ Document processing module for extracting text and images from various file form
 import fitz  # PyMuPDF
 from PIL import Image
 import pytesseract
-import cv2
 import numpy as np
 from typing import Tuple, List, Optional, Union
 import io
 import logging
 from .config import Config
 from .utils import validate_file_upload, format_file_size
+
+# Try to import OpenCV, but make it optional
+try:
+    import cv2
+    OPENCV_AVAILABLE = True
+except ImportError:
+    OPENCV_AVAILABLE = False
+    logging.warning("OpenCV not available. OCR preprocessing will be limited.")
 
 logger = logging.getLogger(__name__)
 
@@ -119,14 +126,17 @@ class DocumentProcessor:
             ocr_results = []
             
             for i, image in enumerate(images):
-                # Convert PIL image to OpenCV format
-                opencv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
-                
-                # Preprocess image for better OCR
-                processed_image = self._preprocess_image_for_ocr(opencv_image)
-                
-                # Perform OCR
                 try:
+                    if OPENCV_AVAILABLE:
+                        # Convert PIL image to OpenCV format
+                        opencv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+                        # Preprocess image for better OCR
+                        processed_image = self._preprocess_image_for_ocr(opencv_image)
+                    else:
+                        # Use PIL image directly if OpenCV is not available
+                        processed_image = image
+                    
+                    # Perform OCR
                     # Try with default configuration
                     text = pytesseract.image_to_string(processed_image)
                     
@@ -152,6 +162,10 @@ class DocumentProcessor:
     
     def _preprocess_image_for_ocr(self, image: np.ndarray) -> np.ndarray:
         """Preprocess image for better OCR results."""
+        if not OPENCV_AVAILABLE:
+            logger.warning("OpenCV not available, skipping image preprocessing")
+            return image
+            
         try:
             # Convert to grayscale
             if len(image.shape) == 3:

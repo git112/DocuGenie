@@ -1,0 +1,28 @@
+# Core AI & ML Libraries
+google-generativeai>=0.8.5
+openai>=1.0.0
+langchain>=0.2.0
+langchain-google-genai>=0.1.0
+
+# Document Processing
+PyMuPDF>=1.26.0
+Pillow>=8.0.0,<11.0
+pytesseract>=0.3.10
+pdf2image>=1.17.0
+
+# Web Framework & UI
+streamlit>=1.48.0
+
+# Data Processing & Analysis
+pandas>=2.3.0
+numpy>=1.24.0
+pydantic>=2.11.0
+
+# Utilities
+python-dotenv>=1.1.0
+requests>=2.32.0
+tqdm>=4.66.0
+python-multipart>=0.0.6
+
+# Optional: Database & Caching
+redis>=5.0.0
