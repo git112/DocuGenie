@@ -30,43 +30,212 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for better styling
+# Custom CSS for modern styling
 st.markdown("""
 <style>
+    /* Global styles */
+    .main {
+        padding: 0;
+    }
+    
+    /* Header styling */
     .main-header {
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-        padding: 2rem;
-        border-radius: 10px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        padding: 3rem 2rem;
+        border-radius: 20px;
         color: white;
         text-align: center;
         margin-bottom: 2rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
     }
+    
+    .main-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+    }
+    
+    .main-header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .main-header h3 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+        opacity: 0.9;
+    }
+    
+    .main-header p {
+        font-size: 1rem;
+        opacity: 0.8;
+        margin: 0;
+    }
+    
+    /* Feature cards */
     .feature-card {
-        background: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 10px;
-        border-left: 4px solid #667eea;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        padding: 2rem;
+        border-radius: 15px;
+        border: 1px solid #e9ecef;
         margin: 1rem 0;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
     }
+    
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    
+    .feature-card h4 {
+        color: #2c3e50;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+    
+    .feature-card p {
+        color: #6c757d;
+        line-height: 1.6;
+        margin: 0;
+    }
+    
+    /* Metric cards */
     .metric-card {
         background: white;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         text-align: center;
+        border: 1px solid #e9ecef;
+        transition: all 0.3s ease;
     }
+    
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    
+    /* Button styling */
     .stButton > button {
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         border: none;
         border-radius: 25px;
-        padding: 0.5rem 2rem;
-        font-weight: bold;
-    }
-    .stButton > button:hover {
-        background: linear-gradient(90deg, #5a6fd8 0%, #6a4190 100%);
-        transform: translateY(-2px);
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        font-size: 1rem;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .stButton > button:hover {
+        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+    
+    /* Sidebar styling */
+    .css-1d391kg {
+        background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+    
+    /* File uploader styling */
+    .stFileUploader > div {
+        border: 2px dashed #667eea;
+        border-radius: 10px;
+        padding: 2rem;
+        text-align: center;
+        background: rgba(102, 126, 234, 0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .stFileUploader > div:hover {
+        border-color: #764ba2;
+        background: rgba(102, 126, 234, 0.1);
+    }
+    
+    /* Success/Error messages */
+    .stAlert {
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    /* Tabs styling */
+    .stTabs > div > div > div > div {
+        background: transparent;
+    }
+    
+    .stTabs > div > div > div > div > div {
+        background: white;
+        border-radius: 10px 10px 0 0;
+        border: 1px solid #e9ecef;
+        border-bottom: none;
+        padding: 0.5rem 1rem;
+        margin-right: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .stTabs > div > div > div > div > div:hover {
+        background: #f8f9fa;
+    }
+    
+    /* Chat interface */
+    .chat-message {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 10px;
+        margin: 0.5rem 0;
+        border-left: 4px solid #667eea;
+    }
+    
+    .chat-question {
+        background: #e3f2fd;
+        border-left-color: #2196f3;
+    }
+    
+    .chat-answer {
+        background: #f3e5f5;
+        border-left-color: #9c27b0;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .main-header h1 {
+            font-size: 2rem;
+        }
+        
+        .main-header h3 {
+            font-size: 1.2rem;
+        }
+        
+        .feature-card {
+            padding: 1.5rem;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -99,7 +268,11 @@ def main_header():
 def sidebar_upload():
     """Handle document upload in sidebar."""
     with st.sidebar:
-        st.header("📁 Document Upload")
+        st.markdown("""
+        <div style="text-align: center; padding: 1rem 0;">
+            <h3 style="color: #2c3e50; margin-bottom: 1rem;">📁 Document Upload</h3>
+        </div>
+        """, unsafe_allow_html=True)
         
         # File uploader
         uploaded_file = st.file_uploader(
@@ -109,19 +282,28 @@ def sidebar_upload():
         )
         
         if uploaded_file:
-            st.success(f"✅ {uploaded_file.name} uploaded successfully!")
+            st.success(f"✅ **{uploaded_file.name}** uploaded successfully!")
             
-            # File info
+            # File info with better styling
             file_size = len(uploaded_file.getvalue()) / 1024  # KB
-            st.info(f"📊 File Size: {file_size:.1f} KB")
+            st.info(f"""
+            📊 **File Information:**
+            - **Size:** {file_size:.1f} KB
+            - **Type:** {uploaded_file.type or 'Unknown'}
+            """)
             
             # Process button
-            if st.button("🚀 Process Document", type="primary"):
+            if st.button("🚀 Process Document", type="primary", use_container_width=True):
                 return uploaded_file
         
-        # Demo documents
+        # Demo documents section
         st.markdown("---")
-        st.subheader("🎯 Try Demo Documents")
+        st.markdown("""
+        <div style="text-align: center; padding: 1rem 0;">
+            <h4 style="color: #2c3e50; margin-bottom: 1rem;">🎯 Try Demo Documents</h4>
+        </div>
+        """, unsafe_allow_html=True)
+        
         demo_options = {
             "Sample Invoice": "demo/invoice_sample.pdf",
             "Sample Contract": "demo/contract_sample.pdf",
@@ -129,8 +311,7 @@ def sidebar_upload():
         }
         
         selected_demo = st.selectbox("Choose a demo document:", list(demo_options.keys()))
-        if st.button("📋 Load Demo"):
-            # In a real app, you'd load these from your demo folder
+        if st.button("📋 Load Demo", use_container_width=True):
             st.info("Demo documents would be loaded here")
     
     return None
@@ -228,21 +409,27 @@ def display_analysis_results():
 
 def chat_interface():
     """Interactive chat interface for document Q&A."""
-    st.header("💬 Ask Questions About Your Document")
+    st.markdown("""
+    <div style="text-align: center; padding: 1rem 0;">
+        <h2 style="color: #2c3e50; margin-bottom: 1rem;">💬 Ask Questions About Your Document</h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     if not st.session_state.document_processed:
         st.info("📄 Please upload and process a document first to start asking questions.")
         return
     
-    # Chat input
+    # Chat input with better styling
+    st.markdown("### 🤔 Ask a Question")
     user_question = st.text_input(
         "Ask anything about your document:",
-        placeholder="e.g., What's the total amount? Who are the parties involved? What are the key terms?"
+        placeholder="e.g., What's the total amount? Who are the parties involved? What are the key terms?",
+        help="Type your question here and click Ask to get an AI-powered answer"
     )
     
     col1, col2 = st.columns([1, 4])
     with col1:
-        ask_button = st.button("🔍 Ask", type="primary")
+        ask_button = st.button("🔍 Ask", type="primary", use_container_width=True)
     
     # Process question
     if ask_button and user_question:
@@ -263,44 +450,73 @@ def chat_interface():
                 'timestamp': datetime.now().isoformat()
             })
             
-            # Display answer
-            st.markdown("### Answer:")
-            st.markdown(answer)
+            # Display answer with better styling
+            st.markdown("### 💡 Answer")
+            st.markdown(f"""
+            <div class="chat-answer" style="padding: 1.5rem; border-radius: 10px; background: #f3e5f5; border-left: 4px solid #9c27b0;">
+                {answer}
+            </div>
+            """, unsafe_allow_html=True)
             
         except Exception as e:
             st.error(f"❌ Error getting answer: {str(e)}")
     
-    # Chat history
+    # Chat history with better styling
     if st.session_state.chat_history:
-        st.subheader("📚 Chat History")
+        st.markdown("### 📚 Chat History")
         for i, chat in enumerate(reversed(st.session_state.chat_history[-5:])):  # Show last 5
-            with st.expander(f"Q: {chat['question'][:50]}..."):
-                st.markdown(f"**Question:** {chat['question']}")
-                st.markdown(f"**Answer:** {chat['answer']}")
-                st.caption(f"Asked at: {chat['timestamp']}")
+            with st.expander(f"💬 Q: {chat['question'][:50]}...", expanded=False):
+                st.markdown(f"""
+                <div class="chat-question" style="padding: 1rem; border-radius: 8px; background: #e3f2fd; border-left: 4px solid #2196f3; margin-bottom: 1rem;">
+                    <strong>Question:</strong> {chat['question']}
+                </div>
+                <div class="chat-answer" style="padding: 1rem; border-radius: 8px; background: #f3e5f5; border-left: 4px solid #9c27b0;">
+                    <strong>Answer:</strong> {chat['answer']}
+                </div>
+                """, unsafe_allow_html=True)
+                st.caption(f"⏰ Asked at: {chat['timestamp']}")
 
 def export_section():
     """Export functionality."""
-    st.header("📤 Export Results")
+    st.markdown("""
+    <div style="text-align: center; padding: 1rem 0;">
+        <h2 style="color: #2c3e50; margin-bottom: 1rem;">📤 Export Results</h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     if not st.session_state.analysis_results:
         st.info("📄 Process a document first to export results.")
         return
     
+    st.markdown("### 📋 Choose Export Format")
+    
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        if st.button("📄 Export as JSON"):
+        st.markdown("""
+        <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 10px; border: 1px solid #e9ecef;">
+            <h4>📄 JSON Format</h4>
+            <p style="color: #6c757d; font-size: 0.9rem;">Machine-readable data for API integration</p>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("📄 Export as JSON", use_container_width=True):
             json_data = json.dumps(st.session_state.analysis_results, indent=2)
             st.download_button(
                 label="Download JSON",
                 data=json_data,
                 file_name=f"docugenie_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
-                mime="application/json"
+                mime="application/json",
+                use_container_width=True
             )
     
     with col2:
-        if st.button("📊 Export as Excel"):
+        st.markdown("""
+        <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 10px; border: 1px solid #e9ecef;">
+            <h4>📊 Excel Format</h4>
+            <p style="color: #6c757d; font-size: 0.9rem;">Spreadsheet format for data analysis</p>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("📊 Export as Excel", use_container_width=True):
             # Convert analysis to Excel format
             df = pd.DataFrame(st.session_state.analysis_results.get('entities', []))
             if not df.empty:
@@ -309,18 +525,26 @@ def export_section():
                     label="Download Excel",
                     data=excel_data,
                     file_name=f"docugenie_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    use_container_width=True
                 )
     
     with col3:
-        if st.button("📝 Export as Report"):
+        st.markdown("""
+        <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 10px; border: 1px solid #e9ecef;">
+            <h4>📝 Text Report</h4>
+            <p style="color: #6c757d; font-size: 0.9rem;">Human-readable summary report</p>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("📝 Export as Report", use_container_width=True):
             # Generate a formatted report
             report = generate_report(st.session_state.analysis_results)
             st.download_button(
                 label="Download Report",
                 data=report,
                 file_name=f"docugenie_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
-                mime="text/plain"
+                mime="text/plain",
+                use_container_width=True
             )
 
 def display_detailed_analysis(analysis: Dict[str, Any]):
