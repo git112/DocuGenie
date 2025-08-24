@@ -27,7 +27,6 @@ tqdm>=4.66.0
 python-multipart>=0.0.6
 
 # Optional: Database & Caching
-sqlite3
 redis>=5.0.0
 
 # Development & Testing
